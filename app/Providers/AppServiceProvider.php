@@ -38,9 +38,9 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised();
         });
 
-        Gate::define('edit-job', function (?User $user, Job $job) {
-            // dd($user);
-           return $job->employer->user->is($user);
-        });
+        // Gate::define('edit-job', function (?User $user, Job $job) {
+        //     // dd($user);
+        //    return $job->employer->user->is($user);
+        // });
     }
 }

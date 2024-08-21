@@ -15,22 +15,28 @@
             <p class="leading-relaxed">{{$job->description}}</p>
         </div>
         <div class="mt-8 flex justify-between items-center">
-            @can('edit-job', $job)
+            @canany(['update','delete'], $job)
             <div class="mr-4 flex gap-2 items-center">
+                <!-- Edit Job button (checks if the user can update the job) -->
+                @can('update', $job)
                 <a href="{{ route('jobs.edit', $job->id) }}"
                     class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Edit Job</a>
-                    
-                    <!-- Form for deletion -->
-                    <form action="{{ route('jobs.destroy', $job->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
+                @endcan
+                <!-- Form for deletion -->
+                <!-- Delete Job button (checks if the user can delete the job) -->
+                @can('delete', $job)
+                <form action="{{ route('jobs.destroy', $job->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
                         class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">Delete
                         Job</button>
-                    </form>
-                </div>
+                </form>
                 @endcan
-            <div @cannot('edit-job', $job) class="flex justify-end w-full" @endcannot>
+            </div>
+            @endcanany
+
+            <div @cannot('update', $job) class="flex justify-end w-full" @endcannot>
                 <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded">Apply
                     Now</a>
             </div>

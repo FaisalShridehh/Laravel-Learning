@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\JobPosted;
 use App\Models\Job;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -13,7 +14,7 @@ class JobController extends Controller
 
     public function index()
     {
-        $jobs = Job::with('employer')->simplePaginate(3);
+        $jobs = Job::with('employer')->latest()->simplePaginate(10);
 
         return view('jobs.index', [
             'jobs' => $jobs
@@ -30,6 +31,7 @@ class JobController extends Controller
 
         return view('jobs.show', ['job' => $job]);
     }
+    
     public function store()
     {
         request()->validate([
@@ -40,7 +42,7 @@ class JobController extends Controller
             'description' => ['required'],
         ]);
 
-        Job::create([
+        $job = Job::create([
             'title' => request('title'),
             'salary' => request('salary'),
             'company' => request('company'),
@@ -49,15 +51,17 @@ class JobController extends Controller
             'employer_id' => 1
         ]);
 
+        Mail::to($job->employer->user)->queue (new JobPosted($job));
+
         return redirect()->route('jobs.index');
     }
     public function edit(Job $job)
     {
 
         // Gate::authorize('edit-job', $job);
-        if(Gate::denies('edit-job', $job)){
-            abort(403);
-        }
+        // if(Gate::denies('update', $job)){
+        //     abort(403);
+        // }
 
         return view('jobs.edit', ['job' => $job]);
     }
@@ -68,7 +72,6 @@ class JobController extends Controller
             'salary' => ['required']
         ]);
 
-        // TODO: authorize 
 
         // $job = Job::findOrFail($id);
 
@@ -84,7 +87,6 @@ class JobController extends Controller
     }
     public function destroy(Job $job)
     {
-        // TODO: authorize
 
         // Job::findOrFail($id)->delete();
         $job->delete();

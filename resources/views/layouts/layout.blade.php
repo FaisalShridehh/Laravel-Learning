@@ -15,7 +15,7 @@
 
 <body class=" h-full">
     <div class="min-h-full">
-        @unless (request()->routeIs('auth.create.register') || request()->routeIs('auth.create.login') )
+        @unless (request()->routeIs('auth.create.register') || request()->routeIs('login') )
         <nav class="bg-sky-950">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
@@ -74,10 +74,10 @@
                         @endauth
                         <div class="ml-4 flex items-center md:ml-6 gap-5">
                             @guest
-                            <x-nav-link href="{{ route('auth.create.login') }}"
-                                :active="request()->routeIs('auth.create.login')">
+                            <x-nav-link href="{{ route('login') }}"
+                                :active="request()->routeIs('login')">
                                 Login</x-nav-link>
-                            <x-nav-link href="{{ route('auth.create.login') }}"
+                            <x-nav-link href="{{ route('login') }}"
                                 :active="request()->routeIs('auth.create.register')">
                                 Register</x-nav-link>
                             @endguest
@@ -91,7 +91,7 @@
 
         <header class="bg-white shadow">
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between">
-                @if (request()->routeIs('auth.create.login') || request()->routeIs('auth.create.register') )
+                @if (request()->routeIs('login') || request()->routeIs('auth.create.register') )
                 <div class=" flex justify-between items-center  w-full">
                     <div class="flex-shrink-0 flex items-center gap-5">
                         <img class="h-8 w-8" src="https://api.dicebear.com/9.x/shapes/svg?seed=Peanut"
@@ -99,11 +99,11 @@
                         <h1 class="text-2xl font-bold tracking text-gray-900 ">{{$heading}}</h1>
                     </div>
                     <div>
-                        @if (request()->routeIs('auth.create.login') )
+                        @if (request()->routeIs('login') )
                         <x-nav-link href="{{ route('auth.create.register') }}" class="bg-sky-900">Register
                         </x-nav-link>
                         @elseif (request()->routeIs('auth.create.register') )
-                        <x-nav-link href="{{ route('auth.create.login') }}" class="bg-sky-900">
+                        <x-nav-link href="{{ route('login') }}" class="bg-sky-900">
                             Login</x-nav-link>
                         @endif
                     </div>
@@ -119,7 +119,7 @@
             </div>
         </header>
         <main>
-            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 h-[calc(100vh-9.25rem)]">
+            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 h-[calc(100vh-9.40rem)]">
                 {{$slot}}
             </div>
         </main>

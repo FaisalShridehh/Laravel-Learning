@@ -61,7 +61,12 @@ I don't know if I forgot anything until now.
 - learn about authentication.
 - learn about Gate.
 - learn about ```$model->can()``` method which is determines if a user can perform an action on a model.
+- learn about policies but its still confusing.
+- ```based on google search and stackoverflow on the usage cases of using gates or policies, the answers i found that it depends on the project and what i want to do , in case the project is simple they recommend to use gates, but in case the project is complex you should use policies.``` <-- i don't know if this is true or not.   
+- learn about sending email using mailable classes but still need more practice on them.
+- learn about queues in laravel but still need more practice on them.
 
 ### Questions
 
 - when to use 'fillable' and 'guarded' in model?
+- when to use Gates and Policies and what is better to use?

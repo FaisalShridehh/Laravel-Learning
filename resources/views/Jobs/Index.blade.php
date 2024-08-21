@@ -3,9 +3,8 @@
     <x-slot:heading>
         Job listing
     </x-slot:heading>
-    <div class="bg-white shadow-lg rounded-lg p-6">
-
-        <ul class="divide-y divide-gray-200">
+    <div class="bg-white shadow-lg rounded-lg py-6 px-3 flex flex-col gap-7 ">
+        <ul class="divide-y divide-gray-200 overflow-y-scroll max-h-[435px] job-scroll-bar px-4 rounded">
             @foreach ($jobs as $job)
             <li class="py-4">
                 <a href="{{ route('jobs.show', $job['id']) }}"
@@ -36,7 +35,9 @@
             </li>
             @endforeach
         </ul>
-        {{ $jobs->links() }}
+        <div class="">
+            {{ $jobs->links() }}
+        </div>
 
     </div>
 </x-app-layout>

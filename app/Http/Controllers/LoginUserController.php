@@ -79,6 +79,6 @@ class LoginUserController extends Controller
     {
         //logout user
         Auth::logout();
-        return redirect()->route('auth.create.login');
+        return redirect()->route('login');
     }
 }
